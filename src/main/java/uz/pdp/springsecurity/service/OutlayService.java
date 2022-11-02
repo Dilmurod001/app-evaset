@@ -35,19 +35,19 @@ public class OutlayService {
         Outlay outlay = new Outlay();
 
         Optional<OutlayCategory> optionalCategory = outlayCategoryRepository.findById(outlayDto.getOutlayCategoryId());
-        if (optionalCategory.isEmpty()) return new ApiResponse("OUTLAY CATEGORY NOT FOUND", false);
+        if (!optionalCategory.isPresent()) return new ApiResponse("OUTLAY CATEGORY NOT FOUND", false);
         outlay.setOutlayCategory(optionalCategory.get());
 
         outlay.setTotalSum(outlayDto.getTotalSum());
 
         Optional<Branch> optionalBranch = branchRepository.findById(outlayDto.getBranchId());
-        if (optionalBranch.isEmpty()) {
+        if (!optionalBranch.isPresent()) {
             return new ApiResponse("BRANCH NOT FOUND", false);
         }
         outlay.setBranch(optionalBranch.get());
 
         Optional<User> spender = userRepository.findById(outlayDto.getSpenderId());
-        if (spender.isEmpty()) return new ApiResponse("SPENDER NOT FOUND", false);
+        if (!spender.isPresent()) return new ApiResponse("SPENDER NOT FOUND", false);
         outlay.setSpender(spender.get());
 
         outlay.setDescription(outlayDto.getDescription());
@@ -63,19 +63,19 @@ public class OutlayService {
         Outlay outlay = outlayRepository.getById(id);
 
         Optional<OutlayCategory> optionalCategory = outlayCategoryRepository.findById(outlayDto.getOutlayCategoryId());
-        if (optionalCategory.isEmpty()) return new ApiResponse("OUTLAY CATEGORY NOT FOUND", false);
+        if (!optionalCategory.isPresent()) return new ApiResponse("OUTLAY CATEGORY NOT FOUND", false);
         outlay.setOutlayCategory(optionalCategory.get());
 
         outlay.setTotalSum(outlayDto.getTotalSum());
 
         Optional<Branch> optionalBranch = branchRepository.findById(outlayDto.getBranchId());
-        if (optionalBranch.isEmpty()) {
+        if (!optionalBranch.isPresent()) {
             return new ApiResponse("BRANCH NOT FOUND", false);
         }
         outlay.setBranch(optionalBranch.get());
 
         Optional<User> spender = userRepository.findById(outlayDto.getSpenderId());
-        if (spender.isEmpty()) return new ApiResponse("SPENDER NOT FOUND", false);
+        if (!spender.isPresent()) return new ApiResponse("SPENDER NOT FOUND", false);
         outlay.setSpender(spender.get());
 
         outlay.setDescription(outlayDto.getDescription());

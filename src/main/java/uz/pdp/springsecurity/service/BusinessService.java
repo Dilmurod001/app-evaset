@@ -38,7 +38,7 @@ public class BusinessService {
 
     public ApiResponse edit(Integer id, BusinessDto businessDto) {
         Optional<Business> optionalBusiness = businessRepository.findById(id);
-        if (optionalBusiness.isEmpty()) return new ApiResponse("BUSINESS NOT FOUND",false);
+        if (!optionalBusiness.isPresent()) return new ApiResponse("BUSINESS NOT FOUND",false);
 
         if (businessRepository.existsByName(businessDto.getName()))
             return new ApiResponse("A BUSINESS WITH THAT NAME ALREADY EXISTS", false);

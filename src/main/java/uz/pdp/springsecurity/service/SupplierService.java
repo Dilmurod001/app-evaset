@@ -27,7 +27,7 @@ public class SupplierService {
 
     public ApiResponse add(SupplierDto supplierDto) {
         Optional<Business> optionalBusiness = businessRepository.findById(supplierDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) {
+        if (!optionalBusiness.isPresent()) {
             return new ApiResponse("BUSINESS NOT FOUND",false);
         }
         Supplier supplier = new Supplier(
@@ -76,7 +76,7 @@ public class SupplierService {
 
         try {
             Optional<Supplier> supplierOptional = supplierRepository.findById(id);
-            if (supplierOptional.isEmpty()) return new ApiResponse("Not Found Supplier", false);
+            if (!supplierOptional.isPresent()) return new ApiResponse("Not Found Supplier", false);
             Supplier supplier = supplierOptional.get();
 
             if (repaymentDto.getRepayment() != null && supplier.getStoreDebt() != null) {

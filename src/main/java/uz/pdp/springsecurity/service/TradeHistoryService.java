@@ -29,7 +29,7 @@ public class TradeHistoryService {
 
         Optional<Trade> optionalTrade = tradeRepository.findById(tradeHistoryDto.getTradeId());
         TradeHistory tradeHistory = new TradeHistory();
-        if (optionalTrade.isEmpty()) return new ApiResponse("TRADE NOT FOUND",false);
+        if (!optionalTrade.isPresent()) return new ApiResponse("TRADE NOT FOUND",false);
         tradeHistory.setTrade(optionalTrade.get());
         tradeHistory.setDescription(tradeHistoryDto.getDescription());
         Optional<PaymentMethod> optionalPaymentMethod = payMethodRepository.findById(tradeHistoryDto.getPaymentMethodId());
@@ -41,7 +41,7 @@ public class TradeHistoryService {
 
     public ApiResponse edit(Integer id, TradeHistoryDto tradeHistoryDto) {
         Optional<TradeHistory> optionalHistory = tradeHistoryRepository.findById(id);
-        if (optionalHistory.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        if (!optionalHistory.isPresent()) return new ApiResponse("NOT FOUND",false);
 
         TradeHistory tradeHistory = optionalHistory.get();
 
@@ -49,7 +49,7 @@ public class TradeHistoryService {
         tradeHistory.setPaidDate(tradeHistoryDto.getPaidDate());
 
         Optional<Trade> optionalTrade = tradeRepository.findById(tradeHistoryDto.getTradeId());
-        if (optionalTrade.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        if (!optionalTrade.isPresent()) return new ApiResponse("NOT FOUND",false);
         tradeHistory.setTrade(optionalTrade.get());
         tradeHistory.setDescription(tradeHistoryDto.getDescription());
         Optional<PaymentMethod> optionalPaymentMethod = payMethodRepository.findById(tradeHistoryDto.getPaymentMethodId());

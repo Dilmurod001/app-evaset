@@ -59,7 +59,7 @@ public class BusinessController {
     /**
      * HAMMA BUSINESSLARNI  OLIB CHIQISH
      *
-     * @param id
+     * @param
      * @return ApiResponse(success - > true object - > value)
      */
     @CheckPermission("VIEW_BUSINESS")

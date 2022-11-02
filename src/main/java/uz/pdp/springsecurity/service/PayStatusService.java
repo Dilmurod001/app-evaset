@@ -26,7 +26,7 @@ public class PayStatusService {
         if (b) return new ApiResponse("SUCH A PAYMENT STATUS ALREADY EXISTS", false);
 
         Optional<Business> optionalBusiness = businessRepository.findById(payStatusDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) {
+        if (!optionalBusiness.isPresent()) {
             return new ApiResponse("BUSINESS NOT FOUND", false);
         }
 
@@ -39,7 +39,7 @@ public class PayStatusService {
 
     public ApiResponse edit(Integer id, PayStatusDto payStatusDto) {
         Optional<PaymentStatus> statusOptional = payStatusRepository.findById(id);
-        if (statusOptional.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        if (!statusOptional.isPresent()) return new ApiResponse("NOT FOUND", false);
 
         boolean b = payStatusRepository.existsByStatus(payStatusDto.getStatus());
         if (b) return new ApiResponse("SUCH A PAYMENT STATUS ALREADY EXISTS", false);

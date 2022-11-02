@@ -23,7 +23,7 @@ public class OutlayCategoryService {
     public ApiResponse add(OutlayCategoryDto outlayCategoryDto) {
 
         Optional<Branch> optionalBranch = branchRepository.findById(outlayCategoryDto.getBranchId());
-        if (optionalBranch.isEmpty()) {
+        if (!optionalBranch.isPresent()) {
             return new ApiResponse("BRANCH NOT FOUND", false);
         }
 

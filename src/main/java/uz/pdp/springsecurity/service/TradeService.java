@@ -68,14 +68,14 @@ public class TradeService {
 
     public ApiResponse deleteTrade(Integer id) {
         Optional<Trade> byId = tradeRepository.findById(id);
-        if (byId.isEmpty()) return new ApiResponse("NOT FOUND",false);
+        if (!byId.isPresent()) return new ApiResponse("NOT FOUND",false);
         tradeRepository.deleteById(id);
         return new ApiResponse("DELATED", true);
     }
 
     public ApiResponse edit(Integer id, TradeDTO tradeDTO) {
         Optional<Trade> optionalTrade = tradeRepository.findById(id);
-        if (optionalTrade.isEmpty()) {
+        if (!optionalTrade.isPresent()) {
             return new ApiResponse("NOT FOUND TRADE", false);
         }
         Trade trade = optionalTrade.get();
@@ -90,7 +90,7 @@ public class TradeService {
 
     public ApiResponse addTraade(Trade trade, TradeDTO tradeDTO) {
         Optional<Customer> optionalCustomer = customerRepository.findById(tradeDTO.getCustomerId());
-        if (optionalCustomer.isEmpty()) {
+        if (!optionalCustomer.isPresent()) {
             return new ApiResponse("CUSTOMER NOT FOUND", false);
         }
         Customer customer = optionalCustomer.get();
@@ -100,7 +100,7 @@ public class TradeService {
          * SOTUVCHI SAQLANDI
          */
         Optional<User> optionalUser = userRepository.findById(tradeDTO.getUserId());
-        if (optionalUser.isEmpty()) {
+        if (!optionalUser.isPresent()) {
             return new ApiResponse("TRADER NOT FOUND", false);
         }
         trade.setTrader(optionalUser.get());
@@ -197,7 +197,7 @@ public class TradeService {
          */
 
         Optional<Currency> optionalCurrency = currencyRepository.findById(tradeDTO.getCurrencyId());
-        if (optionalCurrency.isEmpty()) {
+        if (!optionalCurrency.isPresent()) {
             return new ApiResponse("NOT FOUND CURRENCY", false);
         }
         trade.setCurrency(optionalCurrency.get());
@@ -207,7 +207,7 @@ public class TradeService {
          * BRANCH SAQLANDI
          */
         Optional<Branch> optionalBranch = branchRepository.findById(tradeDTO.getBranchId());
-        if (optionalBranch.isEmpty()) {
+        if (!optionalBranch.isPresent()) {
             return new ApiResponse("BRANCH NOT FOUND", false);
         }
         trade.setBranch(optionalBranch.get());
@@ -217,7 +217,7 @@ public class TradeService {
          * PAYMAENTMETHOD SAQLANDI
          */
         Optional<PaymentMethod> optionalPaymentMethod = payMethodRepository.findById(tradeDTO.getPayMethodId());
-        if (optionalPaymentMethod.isEmpty()) {
+        if (!optionalPaymentMethod.isPresent()) {
             return new ApiResponse("PAYMAENTMETHOD NOT FOUND", false);
         }
         trade.setPayMethod(optionalPaymentMethod.get());
@@ -227,7 +227,7 @@ public class TradeService {
          * ADDRESS SAQLANDI
          */
         Optional<Address> optionalAddress = addressRepository.findById(tradeDTO.getAddressId());
-        if (optionalAddress.isEmpty()) {
+        if (!optionalAddress.isPresent()) {
             return new ApiResponse("ADDRESS NOT FOUND", false);
         }
         trade.setAddress(optionalAddress.get());

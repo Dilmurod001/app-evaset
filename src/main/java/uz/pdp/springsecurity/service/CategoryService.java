@@ -22,7 +22,7 @@ public class CategoryService {
 
     public ApiResponse add(CategoryDto categoryDto) {
         Optional<Business> optionalBusiness = businessRepository.findById(categoryDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) {
+        if (!optionalBusiness.isPresent()) {
             return new ApiResponse("BUSINESS NOT FOUND", false);
         }
 

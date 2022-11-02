@@ -102,7 +102,7 @@ public class ProductService {
 
     public ApiResponse getProduct(Integer id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
-        if (optionalProduct.isEmpty()) {
+        if (!optionalProduct.isPresent()) {
             return new ApiResponse("NOT FOUND", false);
         }
         Product product = optionalProduct.get();
@@ -111,7 +111,7 @@ public class ProductService {
 
     public ApiResponse deleteProduct(Integer id) {
         Optional<Product> optionalProduct = productRepository.findById(id);
-        if (optionalProduct.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        if (!optionalProduct.isPresent()) return new ApiResponse("NOT FOUND", false);
 
         Product product = optionalProduct.get();
         product.setActive(false);

@@ -29,7 +29,7 @@ public class RoleService {
         role.setDescription(roleDto.getDescription());
 
         Optional<Business> optionalBusiness = businessRepository.findById(roleDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) return new ApiResponse("BUSINESS NOT FOUND", false);
+        if (!optionalBusiness.isPresent()) return new ApiResponse("BUSINESS NOT FOUND", false);
         role.setBusiness(optionalBusiness.get());
 
         roleRepository.save(role);
@@ -38,7 +38,7 @@ public class RoleService {
 
     public ApiResponse edit(Integer id, RoleDto roleDto) {
         Optional<Role> optionalRole = roleRepository.findById(id);
-        if (optionalRole.isEmpty()) return new ApiResponse("USER NOT FOUND", false);
+        if (!optionalRole.isPresent()) return new ApiResponse("USER NOT FOUND", false);
 
         Role role = optionalRole.get();
         role.setName(roleDto.getName());
@@ -46,7 +46,7 @@ public class RoleService {
         role.setDescription(roleDto.getDescription());
 
         Optional<Business> optionalBusiness = businessRepository.findById(roleDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) return new ApiResponse("BUSINESS NOT FOUND", false);
+        if (!optionalBusiness.isPresent()) return new ApiResponse("BUSINESS NOT FOUND", false);
         role.setBusiness(optionalBusiness.get());
 
         roleRepository.save(role);

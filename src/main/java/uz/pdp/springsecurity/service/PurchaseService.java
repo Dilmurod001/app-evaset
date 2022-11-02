@@ -49,7 +49,7 @@ public class PurchaseService {
 
     public ApiResponse edit(Integer id, PurchaseDto purchaseDto) {
         Optional<Purchase> optionalPurchase = purchaseRepository.findById(id);
-        if (optionalPurchase.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        if (!optionalPurchase.isPresent()) return new ApiResponse("NOT FOUND", false);
 
         Purchase purchase = optionalPurchase.get();
         ApiResponse apiResponse = addPurchase(purchase, purchaseDto);
@@ -72,25 +72,25 @@ public class PurchaseService {
     private ApiResponse addPurchase(Purchase purchase, PurchaseDto purchaseDto) {
         Optional<Supplier> optionalSupplier = supplierRepository.findById(purchaseDto.getDealerId());
 
-        if (optionalSupplier.isEmpty()) return new ApiResponse("SUPPLIER NOT FOUND", false);
+        if (!optionalSupplier.isPresent()) return new ApiResponse("SUPPLIER NOT FOUND", false);
 //        purchase.setDealer(optionalSupplier.get());
         Supplier supplier = optionalSupplier.get();
 
 
         Optional<User> optionalUser = userRepository.findById(purchaseDto.getSeller());
-        if (optionalUser.isEmpty()) return new ApiResponse("SELLER NOT FOUND", false);
+        if (!optionalUser.isPresent()) return new ApiResponse("SELLER NOT FOUND", false);
         purchase.setSeller(optionalUser.get());
 
         Optional<ExchangeStatus> optionalPurchaseStatus = exchangeStatusRepository.findById(purchaseDto.getPurchaseStatusId());
-        if (optionalPurchaseStatus.isEmpty()) return new ApiResponse("PURCHASE STATUS NOT FOUND", false);
+        if (!optionalPurchaseStatus.isPresent()) return new ApiResponse("PURCHASE STATUS NOT FOUND", false);
         purchase.setPurchaseStatus(optionalPurchaseStatus.get());
 
         Optional<PaymentStatus> optionalPaymentStatus = paymentStatusRepository.findById(purchaseDto.getPaymentStatusId());
-        if (optionalPaymentStatus.isEmpty()) return new ApiResponse("PAYMENT STATUS NOT FOUND", false);
+        if (!optionalPaymentStatus.isPresent()) return new ApiResponse("PAYMENT STATUS NOT FOUND", false);
         purchase.setPaymentStatus(optionalPaymentStatus.get());
 
         Optional<Branch> optionalBranch = branchRepository.findById(purchaseDto.getBranchId());
-        if (optionalBranch.isEmpty()) return new ApiResponse("BRANCH NOT FOUND", false);
+        if (!optionalBranch.isPresent()) return new ApiResponse("BRANCH NOT FOUND", false);
         purchase.setBranch(optionalBranch.get());
 
         List<PurchaseProductDto> purchaseProductsDto = purchaseDto.getPurchaseProductsDto();
@@ -184,7 +184,7 @@ public class PurchaseService {
 
     public ApiResponse getPdfFile(Integer id, HttpServletResponse response) throws IOException {
         Optional<Purchase> optionalPurchase = purchaseRepository.findById(id);
-        if (optionalPurchase.isEmpty()) {
+        if (!optionalPurchase.isPresent()) {
             return new ApiResponse("NOT FOUND PURCHASE", false);
         }
         PDFService pdfService = new PDFService();

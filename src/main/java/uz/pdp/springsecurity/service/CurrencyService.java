@@ -22,7 +22,7 @@ public class CurrencyService {
 
     public ApiResponse add(CurrencyDto currencyDto) {
         Optional<Business> optionalBusiness = businessRepository.findById(currencyDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) {
+        if (!optionalBusiness.isPresent()) {
             return new ApiResponse("BUSINESS NOT FOUND", false);
         }
         Currency currency = new Currency(
@@ -38,7 +38,7 @@ public class CurrencyService {
     public ApiResponse edit(Integer id, CurrencyDto currencyDto) {
         if (!currencyRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
         Optional<Business> optionalBusiness = businessRepository.findById(currencyDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) {
+        if (!optionalBusiness.isPresent()) {
             return new ApiResponse("BUSINESS NOT FOUND", false);
         }
         Currency currency = currencyRepository.getById(id);

@@ -43,7 +43,7 @@ public class   CustomerGroupService {
     public ApiResponse edit(Integer id, CustomerGroupDto customerGroupDto){
         if (!customerGroupRepository.existsById(id)) return new ApiResponse("NOT FOUND",false);
         Optional<CustomerGroup> optionalCustomerGroup = customerGroupRepository.findById(id);
-        if (optionalCustomerGroup.isEmpty()){
+        if (!optionalCustomerGroup.isPresent()){
             return new ApiResponse("NOT FOUND",false);
         }
         CustomerGroup customerGroup = customerGroupRepository.getById(id);

@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class PDFService {
@@ -225,7 +226,7 @@ public class PDFService {
 
         String mimeType = URLConnection.guessContentTypeFromName(file.getName());
 
-        long size = Files.size(Path.of(path));
+        long size = Files.size(Paths.get(path));
 
         response.setContentType(mimeType);
         response.setHeader("Content-Disposition", file.getName() + "/:" + size);
@@ -462,7 +463,7 @@ public class PDFService {
 
         String mimeType = URLConnection.guessContentTypeFromName(file.getName());
 
-        long size = Files.size(Path.of(path));
+        long size = Files.size(Paths.get(path));
 
         response.setContentType(mimeType);
         response.setHeader("Content-Disposition", file.getName() + "/:" + size);

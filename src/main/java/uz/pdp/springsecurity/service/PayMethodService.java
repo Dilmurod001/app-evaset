@@ -28,7 +28,7 @@ public class PayMethodService {
         paymentMethod.setType(payMethodDto.getType());
 
         Optional<Business> optionalBusiness = businessRepository.findById(payMethodDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) return new ApiResponse("BUSINESS NOT FOUND",false);
+        if (!optionalBusiness.isPresent()) return new ApiResponse("BUSINESS NOT FOUND",false);
         paymentMethod.setBusiness(optionalBusiness.get());
 
         payMethodRepository.save(paymentMethod);
@@ -37,7 +37,7 @@ public class PayMethodService {
 
     public ApiResponse edit(Integer id, PayMethodDto payMethodDto) {
         Optional<PaymentMethod> optional = payMethodRepository.findById(id);
-        if (optional.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        if (!optional.isPresent()) return new ApiResponse("NOT FOUND", false);
 
         boolean b = payMethodRepository.existsByType(payMethodDto.getType());
         if (b) return new ApiResponse("SUCH A PAYMENT METHOD ALREADY EXISTS", false);
@@ -46,7 +46,7 @@ public class PayMethodService {
         paymentMethod.setType(payMethodDto.getType());
 
         Optional<Business> optionalBusiness = businessRepository.findById(payMethodDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) return new ApiResponse("BUSINESS NOT FOUND",false);
+        if (!optionalBusiness.isPresent()) return new ApiResponse("BUSINESS NOT FOUND",false);
         paymentMethod.setBusiness(optionalBusiness.get());
 
         payMethodRepository.save(paymentMethod);

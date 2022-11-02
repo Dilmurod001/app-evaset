@@ -23,7 +23,7 @@ public class MeasurementService {
     public ApiResponse add(MeasurementDto measurementDto) {
         Optional<Business> optionalBusiness = businessRepository.findById(measurementDto.getBusinessId());
 
-        if (optionalBusiness.isEmpty()) {
+        if (!optionalBusiness.isPresent()) {
             return new ApiResponse("BUSINESS NOT FOUND", false);
         }
         Measurement measurement = new Measurement(

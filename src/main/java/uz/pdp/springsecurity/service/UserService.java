@@ -56,7 +56,7 @@ public class UserService {
         user.setRole((Role) response.getObject());
 
         Optional<Branch> optionalBranch = branchRepository.findById(userDto.getBranchId());
-        if (optionalBranch.isEmpty()) return new ApiResponse("BRANCH NOT FOUND", false);
+        if (!optionalBranch.isPresent()) return new ApiResponse("BRANCH NOT FOUND", false);
         user.setBranch(optionalBranch.get());
 
         if (!businessRepository.existsById(userDto.getBusinessId()))
@@ -66,7 +66,7 @@ public class UserService {
         user.setEnabled(userDto.getEnabled());
 
         Optional<Attachment> optionalPhoto = attachmentRepository.findById(userDto.getPhotoId());
-        if (optionalPhoto.isEmpty()) return new ApiResponse("PHOTO NOT FOUND", false);
+        if (!optionalPhoto.isPresent()) return new ApiResponse("PHOTO NOT FOUND", false);
 
         user.setPhoto(optionalPhoto.get());
 
@@ -77,7 +77,7 @@ public class UserService {
     public ApiResponse edit(Integer id, UserDto userDto) {
         Optional<User> optionalUser = userRepository.findById(id);
 
-        if (optionalUser.isEmpty()) return new ApiResponse("USER NOT FOUND", false);
+        if (!optionalUser.isPresent()) return new ApiResponse("USER NOT FOUND", false);
         boolean b = userRepository.existsByUsername(userDto.getUsername());
 
         if (b) return new ApiResponse("USERNAME ALREADY EXISTS", false);
@@ -93,7 +93,7 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
         Optional<Branch> optionalBranch = branchRepository.findById(userDto.getBranchId());
-        if (optionalBranch.isEmpty()) return new ApiResponse("BRANCH NOT FOUND", false);
+        if (!optionalBranch.isPresent()) return new ApiResponse("BRANCH NOT FOUND", false);
         user.setBranch(optionalBranch.get());
 
         if (!businessRepository.existsById(userDto.getBusinessId()))
@@ -104,7 +104,7 @@ public class UserService {
         user.setEnabled(userDto.getEnabled());
 
         Optional<Attachment> optionalPhoto = attachmentRepository.findById(userDto.getPhotoId());
-        if (optionalPhoto.isEmpty()) return new ApiResponse("PHOTO NOT FOUND", false);
+        if (!optionalPhoto.isPresent()) return new ApiResponse("PHOTO NOT FOUND", false);
 
         user.setPhoto(optionalPhoto.get());
         userRepository.save(user);
@@ -120,7 +120,7 @@ public class UserService {
 
     public ApiResponse delete(Integer id) {
         Optional<User> byId = userRepository.findById(id);
-        if (byId.isEmpty()) return new ApiResponse("USER NOT FOUND", false);
+        if (!byId.isPresent()) return new ApiResponse("USER NOT FOUND", false);
         userRepository.deleteById(id);
         return new ApiResponse("DELETED", true);
     }
@@ -140,7 +140,7 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(profileDto.getPassword()));
 
         Optional<Attachment> optionalPhoto = attachmentRepository.findById(profileDto.getPhotoId());
-        if (optionalPhoto.isEmpty()) return new ApiResponse("PHOTO NOT FOUND", false);
+        if (!optionalPhoto.isPresent()) return new ApiResponse("PHOTO NOT FOUND", false);
 
         user.setPhoto(optionalPhoto.get());
 

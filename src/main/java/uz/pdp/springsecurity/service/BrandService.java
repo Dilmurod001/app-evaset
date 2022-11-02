@@ -25,7 +25,7 @@ public class BrandService {
         Brand brand = new Brand();
         brand.setName(brandDto.getName());
         Optional<Business> optionalBusiness = businessRepository.findById(brandDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) {
+        if (!optionalBusiness.isPresent()) {
             return new ApiResponse("BUSINESS NOT FOUND", false);
         }
         brand.setBusiness(optionalBusiness.get());
@@ -41,7 +41,7 @@ public class BrandService {
         brand.setName(brandDto.getName());
 
         Optional<Business> optionalBusiness = businessRepository.findById(brandDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) {
+        if (!optionalBusiness.isPresent()) {
             return new ApiResponse("BUSINESS NOT FOUND", false);
         }
 

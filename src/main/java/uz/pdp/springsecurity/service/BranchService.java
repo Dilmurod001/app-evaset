@@ -31,11 +31,11 @@ public class BranchService {
         branch.setName(branchDto.getName());
 
         Optional<Address> byId = addressRepository.findById(branchDto.getAddressId());
-        if (byId.isEmpty()) return new ApiResponse("ADDRESS NOT FOUND", false);
+        if (!byId.isPresent()) return new ApiResponse("ADDRESS NOT FOUND", false);
         branch.setAddress(byId.get());
 
         Optional<Business> optionalBusiness = businessRepository.findById(branchDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) return new ApiResponse("BUSINESS NOT FOUND", false);
+        if (!optionalBusiness.isPresent()) return new ApiResponse("BUSINESS NOT FOUND", false);
         branch.setBusiness(optionalBusiness.get());
 
         branchRepository.save(branch);
@@ -53,7 +53,7 @@ public class BranchService {
         branch.setAddress(branch.getAddress());
 
         Optional<Business> optionalBusiness = businessRepository.findById(branchDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) return new ApiResponse("BUSINESS NOT FOUND", false);
+        if (!optionalBusiness.isPresent()) return new ApiResponse("BUSINESS NOT FOUND", false);
         branch.setBusiness(optionalBusiness.get());
         branchRepository.save(branch);
         return new ApiResponse("EDITED", true);

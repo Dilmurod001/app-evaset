@@ -23,7 +23,7 @@ public class CustomerService {
 
     public ApiResponse add(CustomerDto customerDto) {
         Optional<Business> optionalBusiness = businessRepository.findById(customerDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) {
+        if (!optionalBusiness.isPresent()) {
             return new ApiResponse("BRANCH NOT FOUND", false);
         }
 
@@ -40,7 +40,7 @@ public class CustomerService {
     public ApiResponse edit(Integer id, CustomerDto customerDto) {
         if (!customerRepository.existsById(id)) return new ApiResponse("NOT FOUND", false);
         Optional<Business> optionalBusiness = businessRepository.findById(customerDto.getBusinessId());
-        if (optionalBusiness.isEmpty()) {
+        if (!optionalBusiness.isPresent()) {
             return new ApiResponse("BRANCH NOT FOUND", false);
         }
 
@@ -74,7 +74,7 @@ public class CustomerService {
     public ApiResponse repayment(Integer id, RepaymentDto repaymentDto) {
         try {
             Optional<Customer> byId = customerRepository.findById(id);
-            if (byId.isEmpty()) return new ApiResponse("Not Found Customer !", false);
+            if (!byId.isPresent()) return new ApiResponse("Not Found Customer !", false);
             Customer customer = byId.get();
 
             if (repaymentDto.getRepayment() != null && customer.getDebt() != null) {

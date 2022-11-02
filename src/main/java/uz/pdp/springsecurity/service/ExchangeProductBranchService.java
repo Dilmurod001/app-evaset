@@ -39,7 +39,7 @@ public class ExchangeProductBranchService {
 
     public ApiResponse edit(Integer id, ExchangeProductBranchDTO exchangeProductBranchDTO) {
         Optional<ExchangeProductBranch> optionalExchange = exchangeProductBranchRepository.findById(id);
-        if (optionalExchange.isEmpty()) return new ApiResponse("NOT FOUND", false);
+        if (!optionalExchange.isPresent()) return new ApiResponse("NOT FOUND", false);
         ExchangeProductBranch exchange = optionalExchange.get();
         return add(exchange, exchangeProductBranchDTO);
     }
@@ -54,7 +54,7 @@ public class ExchangeProductBranchService {
          */
         Integer shippedBranchId = exchangeProductBranchDTO.getShippedBranchId();
         Optional<Branch> optionalBranch = branchRepository.findById(shippedBranchId);
-        if (optionalBranch.isEmpty()) {
+        if (!optionalBranch.isPresent()) {
             return new ApiResponse("SHIPPED BRANCH NOT FOUND", false);
         }
         exchangeProductBranch.setShippedBranch(optionalBranch.get());
@@ -64,7 +64,7 @@ public class ExchangeProductBranchService {
          */
         Integer receivedBranch = exchangeProductBranchDTO.getReceivedBranchId();
         Optional<Branch> branchOptional = branchRepository.findById(receivedBranch);
-        if (branchOptional.isEmpty()) {
+        if (!branchOptional.isPresent()) {
             return new ApiResponse("RECEIVED BRANCH NOT FOUND", false);
         }
         exchangeProductBranch.setReceivedBranch(branchOptional.get());
@@ -151,12 +151,12 @@ public class ExchangeProductBranchService {
     }
 
     public ApiResponse getOne(Integer id) {
-        if (exchangeProductBranchRepository.findById(id).isEmpty()) return new ApiResponse("NOT FOUND", false);
+        if (!exchangeProductBranchRepository.findById(id).isPresent()) return new ApiResponse("NOT FOUND", false);
         return new ApiResponse("FOUND", true, exchangeProductBranchRepository.getById(id));
     }
 
     public ApiResponse deleteOne(Integer id) {
-        if (exchangeProductBranchRepository.findById(id).isEmpty()) return new ApiResponse("NOT FOUND", false);
+        if (!exchangeProductBranchRepository.findById(id).isPresent()) return new ApiResponse("NOT FOUND", false);
         exchangeProductBranchRepository.deleteById(id);
         return new ApiResponse("DELETED", true);
     }
