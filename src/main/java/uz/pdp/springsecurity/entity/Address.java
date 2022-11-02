@@ -17,8 +17,7 @@ import javax.persistence.Entity;
 public class Address extends AbsEntity {
     @Column(nullable = false)
     private String city;
-    //hhhu6u
-
+    //
     private String district;
 
     @Column(nullable = false)
